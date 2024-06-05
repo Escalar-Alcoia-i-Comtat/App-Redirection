@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Escalar Alcoià i Comtat - Redirecting...</title>
+</head>
+<body>
+<p>Redirecting...</p><br/>
+
+<script>
+    /**
+     * Determine the mobile operating system.
+     * This function returns one of 'iOS', 'Android', 'Windows Phone', or 'unknown'.
+     *
+     * @returns {'Windows Phone'|'Android'|'iOS'|'unknown'}
+     */
+    function getMobileOperatingSystem() {
+        const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+
+        // Windows Phone must come first because its UA also contains "Android"
+        if (/windows phone/i.test(userAgent)) {
+            return "Windows Phone";
+        }
+
+        if (/android/i.test(userAgent)) {
+            return "Android";
+        }
+
+        // iOS detection from: http://stackoverflow.com/a/9039885/177710
+        if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
+            return "iOS";
+        }
+
+        return "unknown";
+    }
+
+    window.addEventListener('load', function () {
+        const os = getMobileOperatingSystem();
+        let url;
+        switch (os) {
+            case 'iOS':
+                url = 'https://apps.apple.com/app/escalar-alcoi%C3%A0-i-comtat/id6503638314';
+                break;
+            case 'Android':
+                url = 'https://play.google.com/store/apps/details?id=org.escalaralcoiaicomtat.android';
+                break;
+            default:
+                url = 'https://escalaralcoiaicomtat.org';
+                break;
+        }
+
+        const redirectParagraph = document.createElement('p');
+        redirectParagraph.innerHTML = `If redirection doesn\'t happen automatically, click <a href="${url}">here</a>.`;
+        document.body.append(redirectParagraph);
+
+        // Redirect to the URL
+        window.location.href = url;
+    })
+</script>
+</body>
+</html>
